@@ -459,6 +459,478 @@
                 cursor: pointer;
             }
         }
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website with PC Customer AI Assistant</title>
+  <style>
+    :root {
+      --primary-color: #4a6cf7;
+      --secondary-color: #f5f5f5;
+      --text-color: #333;
+      --light-text: #888;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: var(--text-color);
+    }
+    
+    .website-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    /* Chat Widget Styles */
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    
+    .chat-button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+    }
+    
+    .chat-button:hover {
+      transform: scale(1.05);
+    }
+    
+    .chat-icon {
+      color: white;
+      font-size: 24px;
+    }
+    
+    .chat-window {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 350px;
+      height: 450px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .chat-header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .assistant-name {
+      font-weight: 600;
+    }
+    
+    .close-chat {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+    }
+    
+    .message {
+      margin-bottom: 12px;
+      max-width: 80%;
+      padding: 10px 12px;
+      border-radius: 18px;
+      line-height: 1.4;
+      font-size: 14px;
+    }
+    
+    .user-message {
+      background-color: var(--primary-color);
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 5px;
+    }
+    
+    .ai-message {
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      border-bottom-left-radius: 5px;
+    }
+    
+    .typing-indicator {
+      display: none;
+      background-color: var(--secondary-color);
+      padding: 8px 12px;
+      border-radius: 18px;
+      width: fit-content;
+      margin-bottom: 12px;
+    }
+    
+    .typing-indicator span {
+      height: 8px;
+      width: 8px;
+      float: left;
+      margin: 0 1px;
+      background-color: #9E9EA1;
+      display: block;
+      border-radius: 50%;
+      opacity: 0.4;
+    }
+    
+    .typing-indicator span:nth-of-type(1) {
+      animation: 1s blink infinite 0.3333s;
+    }
+    
+    .typing-indicator span:nth-of-type(2) {
+      animation: 1s blink infinite 0.6666s;
+    }
+    
+    .typing-indicator span:nth-of-type(3) {
+      animation: 1s blink infinite 0.9999s;
+    }
+    
+    @keyframes blink {
+      50% {
+        opacity: 1;
+      }
+    }
+    
+    .chat-input-area {
+      padding: 15px;
+      border-top: 1px solid #eee;
+      display: flex;
+    }
+    
+    .chat-input {
+      flex: 1;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 10px 15px;
+      font-size: 14px;
+      outline: none;
+    }
+    
+    .send-button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      margin-left: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .suggested-questions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      padding: 0 15px 10px;
+    }
+    
+    .suggested-question {
+      background-color: #e8efff;
+      border: 1px solid #d0ddff;
+      color: var(--primary-color);
+      border-radius: 16px;
+      padding: 6px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .suggested-question:hover {
+      background-color: #d0ddff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Example Website Content -->
+  <div class="website-content">
+    <h1>PC Tech Solutions</h1>
+    <p>This is an example of how the AI assistant will appear on your PC tech website.</p>
+    <p>Click the chat button in the bottom right corner to start a conversation with our PC support assistant.</p>
+  </div>
+
+  <!-- AI Chat Widget -->
+  <div class="chat-widget">
+    <div class="chat-button" id="chatButton">
+      <div class="chat-icon">💬</div>
+    </div>
+    
+    <div class="chat-window" id="chatWindow">
+      <div class="chat-header">
+        <div class="assistant-name">PC Support Assistant</div>
+        <button class="close-chat" id="closeChat">×</button>
+      </div>
+      
+      <div class="chat-messages" id="chatMessages">
+        <div class="message ai-message">
+          Hello! I'm your PC Support Assistant. How can I help you today with your computer needs?
+        </div>
+        <div class="typing-indicator" id="typingIndicator">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      
+      <div class="suggested-questions" id="suggestedQuestions">
+        <div class="suggested-question">PC won't turn on</div>
+        <div class="suggested-question">Upgrading my RAM</div>
+        <div class="suggested-question">Slow computer</div>
+        <div class="suggested-question">Graphics card recommendations</div>
+      </div>
+      
+      <div class="chat-input-area">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Type your message here...">
+        <button class="send-button" id="sendButton">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatButton = document.getElementById('chatButton');
+      const chatWindow = document.getElementById('chatWindow');
+      const closeChat = document.getElementById('closeChat');
+      const chatInput = document.getElementById('chatInput');
+      const sendButton = document.getElementById('sendButton');
+      const chatMessages = document.getElementById('chatMessages');
+      const typingIndicator = document.getElementById('typingIndicator');
+      const suggestedQuestions = document.getElementById('suggestedQuestions');
+      
+      // PC-specific pre-made responses
+      const pcResponses = {
+        // Hardware Issues
+        "turn on": "If your PC won't turn on, try these troubleshooting steps:\n1. Check if the power cable is properly connected\n2. Try a different power outlet\n3. Ensure the power supply switch is on\n4. Remove and reseat RAM modules\n5. If you hear beeping sounds, check your motherboard manual for error codes",
+        
+        "boot": "Boot issues can be caused by several factors. Try these steps:\n1. Check if your BIOS/UEFI settings are correct\n2. Ensure boot order is set correctly\n3. Try booting from a recovery USB\n4. Check if all storage drives are properly connected\n5. Run startup repair from a Windows installation media",
+        
+        "blue screen": "Blue screen errors (BSOD) usually indicate hardware or driver issues. Try these steps:\n1. Note the error code displayed\n2. Update all device drivers\n3. Run Windows Memory Diagnostic tool\n4. Check for overheating issues\n5. Scan for malware\n6. If it happened after installing new hardware/software, try uninstalling it",
+        
+        // Upgrades and Recommendations
+        "upgrade": "When looking to upgrade your PC, consider:\n1. What specific performance improvement you're looking for\n2. Your current specs and compatible components\n3. Your budget\n\nPopular upgrades include adding RAM, upgrading to an SSD, or getting a better graphics card. Would you like specific recommendations for any of these?",
+        
+        "ram": "When upgrading RAM, check:\n1. The maximum RAM capacity your motherboard supports\n2. The RAM type (DDR3, DDR4, DDR5, etc.)\n3. The speed your system supports (MHz)\n4. How many slots are available\n\nFor most modern systems, 16GB is recommended for general use, while 32GB or more is better for gaming or professional applications.",
+        
+        "graphics card": "When choosing a graphics card, consider:\n1. Your monitor's resolution and refresh rate\n2. Your power supply wattage\n3. Physical space in your case\n4. Your budget\n\nPopular options right now include NVIDIA RTX 4060/4070 series for mid-range or AMD Radeon RX 7600/7700 for good price-performance balance.",
+        
+        "processor": "When upgrading your CPU, you need to check:\n1. Socket compatibility with your motherboard\n2. Power requirements\n3. Cooling solution needed\n\nFor gaming, Intel Core i5/i7 or AMD Ryzen 5/7 offer great performance. For professional work, consider Intel Core i7/i9 or AMD Ryzen 7/9 processors.",
+        
+        // Performance Issues
+        "slow": "If your computer is running slow, try these steps:\n1. Restart your computer\n2. Check for malware/viruses\n3. Uninstall unused programs\n4. Clean up disk space (Disk Cleanup utility)\n5. Disable startup programs\n6. Consider upgrading to an SSD if you're using an HDD\n7. Add more RAM if you're frequently at high memory usage",
+        
+        "fps": "To improve gaming FPS (frames per second):\n1. Update your graphics drivers\n2. Lower in-game graphics settings\n3. Close background applications\n4. Check for thermal throttling/overheating\n5. Make sure your power plan is set to 'High Performance'\n6. Consider upgrading your graphics card or RAM if consistently low",
+        
+        "cooling": "For better PC cooling:\n1. Ensure proper airflow in your case\n2. Clean dust from fans and heatsinks\n3. Add more case fans if needed\n4. Consider aftermarket CPU coolers\n5. Check thermal paste application on CPU\n6. For extreme performance, consider liquid cooling",
+        
+        // Software Issues
+        "windows": "For Windows issues, try these general steps:\n1. Run Windows Update to get latest fixes\n2. Use System File Checker (sfc /scannow in Command Prompt)\n3. Check Event Viewer for specific error logs\n4. Run DISM tool to repair Windows image\n5. As a last resort, consider Reset PC option while keeping personal files",
+        
+        "driver": "For driver-related issues:\n1. Visit the manufacturer's website for the latest drivers\n2. Use Device Manager to check for problems\n3. Consider rolling back drivers if issues started after an update\n4. For graphics cards, try clean installation of drivers using DDU (Display Driver Uninstaller)",
+        
+        // General Support
+        "help": "I can help with many PC-related topics including:\n- Hardware troubleshooting\n- Upgrade recommendations\n- Performance optimization\n- Component compatibility\n- Software issues\n\nJust let me know what you need assistance with!",
+        
+        "build": "For building a new PC, consider these components:\n1. CPU: Intel Core or AMD Ryzen based on budget/needs\n2. Motherboard: Compatible with chosen CPU\n3. RAM: 16GB+ DDR4/DDR5\n4. Storage: NVMe SSD for OS, SATA SSD or HDD for storage\n5. GPU: Based on your performance needs\n6. Power Supply: Quality unit with sufficient wattage\n7. Case: Good airflow and component clearance\n\nWould you like specific recommendations for any component?",
+        
+        // Fallback response
+        "default": "I don't have specific information about that PC issue, but I'd be happy to help you troubleshoot. Could you provide more details about your system and the problem you're experiencing?"
+      };
+      
+      // Function to find the best matching response
+      function findBestResponse(userMessage) {
+        userMessage = userMessage.toLowerCase();
+        
+        // Check for exact matches with common questions
+        if (userMessage.includes("my pc won't turn on") || userMessage.includes("computer won't start")) {
+          return pcResponses["turn on"];
+        }
+        
+        if (userMessage.includes("upgrade ram") || userMessage.includes("more ram") || userMessage.includes("memory upgrade")) {
+          return pcResponses["ram"];
+        }
+        
+        if (userMessage.includes("slow computer") || userMessage.includes("pc is slow") || userMessage.includes("speed up")) {
+          return pcResponses["slow"];
+        }
+        
+        if (userMessage.includes("graphics card") || userMessage.includes("gpu recommendation") || userMessage.includes("best video card")) {
+          return pcResponses["graphics card"];
+        }
+        
+        // Check for keyword matches
+        for (const keyword in pcResponses) {
+          if (userMessage.includes(keyword)) {
+            return pcResponses[keyword];
+          }
+        }
+        
+        // If no matches found, return default response
+        return pcResponses["default"];
+      }
+      
+      // Toggle chat window visibility
+      chatButton.addEventListener('click', function() {
+        chatWindow.style.display = 'flex';
+      });
+      
+      closeChat.addEventListener('click', function() {
+        chatWindow.style.display = 'none';
+      });
+      
+      // Send message function
+      function sendMessage(message) {
+        if (message === '') return;
+        
+        // Add user message to chat
+        addMessage(message, 'user');
+        chatInput.value = '';
+        
+        // Show typing indicator
+        typingIndicator.style.display = 'block';
+        
+        // Simulate AI thinking and responding
+        setTimeout(function() {
+          typingIndicator.style.display = 'none';
+          
+          // Get response based on user message
+          const aiResponse = findBestResponse(message);
+          
+          // Add AI response to chat
+          addMessage(aiResponse, 'ai');
+          
+          // Scroll to bottom of chat
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          
+          // Update suggested questions based on context
+          updateSuggestedQuestions(message);
+        }, 1000); // Simulated typing delay
+      }
+      
+      // Add a message to the chat
+      function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+        messageDiv.classList.add(sender === 'user' ? 'user-message' : 'ai-message');
+        messageDiv.textContent = text;
+        
+        // Insert before typing indicator
+        chatMessages.insertBefore(messageDiv, typingIndicator);
+        
+        // Scroll to bottom of chat
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      // Update suggested questions based on context
+      function updateSuggestedQuestions(lastMessage) {
+        // Clear current suggestions
+        suggestedQuestions.innerHTML = '';
+        
+        let newSuggestions = [];
+        
+        // Customize follow-up questions based on the previous conversation
+        lastMessage = lastMessage.toLowerCase();
+        
+        if (lastMessage.includes("upgrade")) {
+          newSuggestions = [
+            "What CPU is best for gaming?",
+            "How much RAM do I need?",
+            "SSD vs HDD comparison",
+            "Best budget graphics card"
+          ];
+        } else if (lastMessage.includes("slow") || lastMessage.includes("performance")) {
+          newSuggestions = [
+            "How to clean up disk space",
+            "Should I add more RAM?",
+            "PC optimization tips",
+            "Signs of malware infection"
+          ];
+        } else if (lastMessage.includes("won't turn on") || lastMessage.includes("not starting")) {
+          newSuggestions = [
+            "Motherboard troubleshooting",
+            "Power supply issues",
+            "BIOS reset procedure",
+            "Hardware diagnostic tools"
+          ];
+        } else if (lastMessage.includes("graphics card") || lastMessage.includes("gpu")) {
+          newSuggestions = [
+            "Graphics card installation",
+            "Recommended PSU for GPU",
+            "GPU overheating issues",
+            "Monitor connection types"
+          ];
+        } else {
+          // Default suggestions
+          newSuggestions = [
+            "PC building tips",
+            "Windows troubleshooting",
+            "Cooling system advice",
+            "Software recommendations"
+          ];
+        }
+        
+        // Add new suggestions to the UI
+        newSuggestions.forEach(suggestion => {
+          const suggElement = document.createElement('div');
+          suggElement.classList.add('suggested-question');
+          suggElement.textContent = suggestion;
+          suggElement.addEventListener('click', function() {
+            sendMessage(this.textContent);
+          });
+          suggestedQuestions.appendChild(suggElement);
+        });
+      }
+      
+      // Make suggested questions clickable
+      document.querySelectorAll('.suggested-question').forEach(question => {
+        question.addEventListener('click', function() {
+          sendMessage(this.textContent);
+        });
+      });
+      
+      // Send message when button is clicked
+      sendButton.addEventListener('click', function() {
+        sendMessage(chatInput.value.trim());
+      });
+      
+      // Send message when Enter key is pressed
+      chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          sendMessage(chatInput.value.trim());
+        }
+      });
+    });
+  </script>
+</body>
+</html>
     </style>
     <script>
         function sendEmail() {
