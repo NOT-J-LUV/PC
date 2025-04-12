@@ -1,801 +1,695 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JLUV PC | Keep it clean, come to me</title>
-    <style>
-        :root {
-            --primary: #2563eb;
-            --secondary: #60a5fa;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --accent: #10b981;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-        
-        header {
-            background-color: var(--dark);
-            padding: 1rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-text {
-            color: var(--light);
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-left: 10px;
-        }
-        
-        .logo-text span {
-            color: var(--secondary);
-        }
-        
-        .slogan {
-            color: var(--secondary);
-            font-style: italic;
-            font-size: 0.9rem;
-            margin-left: 10px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 2rem;
-        }
-        
-        nav ul li a {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: var(--secondary);
-        }
-        
-        .hero {
-            background: linear-gradient(135deg, var(--dark) 0%, #1e40af 100%);
-            color: var(--light);
-            padding: 10rem 5% 5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .hero-content {
-            width: 50%;
-        }
-        
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--light);
-            padding: 0.8rem 2rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s, background-color 0.3s;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            background-color: #0d9668;
-        }
-        
-        .hero-image {
-            width: 45%;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .hero-image img {
-            width: 100%;
-            display: block;
-        }
-        
-        .services {
-            padding: 5rem 5%;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background-color: var(--primary);
-            margin: 1rem auto;
-        }
-        
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .service-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .service-icon {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-        
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .about {
-            background-color: var(--dark);
-            color: var(--light);
-            padding: 5rem 5%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .about-content {
-            width: 50%;
-        }
-        
-        .about-image {
-            width: 40%;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .about-image img {
-            width: 100%;
-            display: block;
-        }
-        
-        .about h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .about p {
-            margin-bottom: 1rem;
-            opacity: 0.9;
-        }
-        
-        .gallery {
-            padding: 5rem 5%;
-        }
-        
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .gallery-item {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            height: 250px;
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        
-        .gallery-item .overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            padding: 1rem;
-            color: white;
-            transform: translateY(100%);
-            transition: transform 0.3s;
-        }
-        
-        .gallery-item:hover .overlay {
-            transform: translateY(0);
-        }
-        
-        .testimonials {
-            background-color: #f1f5f9;
-            padding: 5rem 5%;
-        }
-
-         .chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 350px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-            overflow: hidden;
-            z-index: 1000;
-            display: none;
-        }
-        
-        .chat-header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .chat-body {
-            height: 300px;
-            padding: 1rem;
-            overflow-y: auto;
-        }
-        
-        .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 8px;
-            max-width: 70%;
-        }
-        
-        .bot {
-            background-color: #f1f1f1;
-            align-self: flex-start;
-        }
-        
-        .user {
-            background-color: var(--primary);
-            color: white;
-            align-self: flex-end;
-            margin-left: auto;
-        }
-        
-        .chat-footer {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid #eee;
-        }
-        
-        .chat-footer input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-right: 10px;
-        }
-        
-        .chat-footer button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .chat-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            cursor: pointer;
-            z-index: 999;
-        }
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .testimonial-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 1.5rem;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        
-        .testimonial-author img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 1rem;
-        }
-        
-        .contact {
-            padding: 5rem 5%;
-            background-color: var(--dark);
-            color: var(--light);
-        }
-        
-        .contact-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 2rem;
-        }
-        
-        .contact-info {
-            width: 40%;
-        }
-        
-        .contact-info h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .contact-info p {
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
-        
-        .contact-detail {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .contact-icon {
-            margin-right: 1rem;
-            font-size: 1.2rem;
-            color: var(--secondary);
-        }
-        
-        .contact-form {
-            width: 55%;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 10px;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--light);
-        }
-        
-        .form-group textarea {
-            height: 150px;
-            resize: vertical;
-        }
-        
-        .submit-button {
-            background-color: var(--accent);
-            color: var(--light);
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.3s;
-        }
-        
-        .submit-button:hover {
-            background-color: #0d9668;
-        }
-        
-        footer {
-            background-color: #0a0f1a;
-            color: var(--light);
-            padding: 2rem 5%;
-            text-align: center;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            margin: 1.5rem 0;
-        }
-        
-        .footer-links a {
-            color: var(--light);
-            margin: 0 1rem;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--secondary);
-        }
-        
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-            margin: 0 0.5rem;
-            color: var(--light);
-            text-decoration: none;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        
-        .social-icons a:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-        }
-        
-        @media (max-width: 992px) {
-            .hero, .about, .contact-container {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .hero-content, .hero-image, .about-content, .about-image, .contact-info, .contact-form {
-                width: 100%;
-                margin-bottom: 2rem;
-            }
-            
-            nav {
-                display: none;
-            }
-            
-            .mobile-menu-button {
-                display: block;
-                background: none;
-                border: none;
-                color: var(--light);
-                font-size: 1.5rem;
-                cursor: pointer;
-            }
-        }
-    </style>
-    <script>
-        function sendEmail() {
-            var name = document.getElementById('name').value;
-            var email = document.getElementById('email').value;
-            var phone = document.getElementById('phone').value;
-            var message = document.getElementById('message').value;
-            
-            var subject = "JLUV PC Website Inquiry from " + name;
-            var body = "Name: " + name + 
-                      "\nEmail: " + email + 
-                      "\nPhone: " + phone + 
-                      "\n\nMessage: " + message;
-            
-            window.location.href = "mailto:jjmasching00@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-            
-            return false; // Prevent form from submitting
-        }
-    </script>
-</head>
-<body>
-    <header>
-        <div class="logo-container">
-            <div class="logo-text">JLUV <span>PC</span></div>
-        </div>
-        <div class="slogan">Keep it clean, come to me</div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Custom PC Building <br>from New Salisbury, Indiana</h1>
-            <p>Expert craftsmanship. Premium components. Exceptional performance. Your dream PC awaits.</p>
-            <a href="#contact" class="cta-button">Get Your Custom Build Today</a>
-        </div>
-        <div class="hero-image">
-            <img src="/api/placeholder/600/400" alt="High-performance custom PC build by JLUV PC">
-        </div>
-    </section>
-
-    <section id="services" class="services">
-        <h2 class="section-title">Our Services</h2>
-        <div class="service-grid">
-            <div class="service-card">
-                <div class="service-icon">💻</div>
-                <h3>Custom PC Builds</h3>
-                <p>From gaming rigs to workstations, we'll build the perfect PC tailored to your specific needs and budget.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🛠️</div>
-                <h3>PC Upgrades</h3>
-                <p>Enhance your existing system with upgrades that boost performance and extend your computer's lifespan.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🧹</div>
-                <h3>PC Cleaning</h3>
-                <p>Professional cleaning and maintenance to keep your system running cool and at peak performance.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">💬</div>
-                <h3>Consultation</h3>
-                <p>Expert advice on components, configurations, and solutions to meet your computing needs.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <div class="about-content">
-            <h2>About JLUV PC</h2>
-            <p>Based in New Salisbury, Indiana, JLUV PC was born from a passion for building high-performance, reliable computer systems. What started as a hobby has grown into my dream business.</p>
-            <p>With meticulous attention to detail and a commitment to using only premium components, I ensure that every build meets the highest standards of quality and performance.</p>
-            <p>My mission is simple: provide customized PC solutions that exceed expectations while offering exceptional customer service every step of the way.</p>
-        </div>
-        <div class="about-image">
-            <img src="/api/placeholder/500/400" alt="JLUV PC founder working on a custom PC build">
-        </div>
-    </section>
-
-    <section id="gallery" class="gallery">
-        <h2 class="section-title">Build Gallery</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="/api/placeholder/400/400" alt="Gaming PC with RGB lighting">
-                <div class="overlay">
-                    <h3>RGB Gaming Beast</h3>
-                    <p>High-end gaming PC with custom RGB lighting</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="/api/placeholder/400/400" alt="Minimalist workstation PC">
-                <div class="overlay">
-                    <h3>Minimalist Workstation</h3>
-                    <p>Clean and powerful desktop for professional work</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="/api/placeholder/400/400" alt="Compact SFF PC build">
-                <div class="overlay">
-                    <h3>Compact Powerhouse</h3>
-                    <p>Small form factor PC with maximum performance</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="/api/placeholder/400/400" alt="Custom water-cooled PC">
-                <div class="overlay">
-                    <h3>Liquid Cooled Performance</h3>
-                    <p>Custom water cooling for optimal temperatures</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="/api/placeholder/400/400" alt="Budget gaming PC build">
-                <div class="overlay">
-                    <h3>Budget Gaming Rig</h3>
-                    <p>Affordable but powerful gaming solution</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="/api/placeholder/400/400" alt="High-end content creation PC">
-                <div class="overlay">
-                    <h3>Creator's Dream</h3>
-                    <p>Optimized for video editing and content creation</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="testimonials" class="testimonials">
-        <h2 class="section-title">What Clients Say</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <p class="testimonial-text">"JLUV PC built me a gaming rig that exceeds all my expectations. The attention to detail and cable management is immaculate. Truly a work of art!"</p>
-                <div class="testimonial-author">
-                    <img src="/api/placeholder/100/100" alt="Customer">
-                    <div>
-                        <strong>Mike Johnson</strong>
-                        <p>Gaming Enthusiast</p>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">"After explaining my needs for video editing, I received a custom PC that handles everything I throw at it with ease. The service was personal and professional."</p>
-                <div class="testimonial-author">
-                    <img src="/api/placeholder/100/100" alt="Customer">
-                    <div>
-                        <strong>Sarah Miller</strong>
-                        <p>Content Creator</p>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">"The PC cleaning service brought my old system back to life. Everything runs cooler and faster now. Great value and excellent service!"</p>
-                <div class="testimonial-author">
-                    <img src="/api/placeholder/100/100" alt="Customer">
-                    <div>
-                        <strong>David Thompson</strong>
-                        <p>Business Owner</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="contact-container">
-            <div class="contact-info">
-                <p>Ready to start your custom PC journey? Contact me today for a free consultation and quote.</p>
-                <div class="contact-detail">
-                    <span class="contact-icon">📍</span>
-                    <span>New Salisbury, Indiana</span>
-                </div>
-                <div class="contact-detail">
-                    <span class="contact-icon">📱</span>
-                    <span>(812) 736-2887</span>
-                </div>
-                <div class="contact-detail">
-                    <span class="contact-icon">✉️</span>
-                    <span>jjmasching00@gmail.com</span>
-                </div>
-                <div class="contact-detail">
-                    <span class="contact-icon">⏰</span>
-                    <span>Monday-Friday: 3pm-11pm<br>Saturday: 10am-12am</span>
-                </div>
-            </div>
-    </section>
-             <div class="chat-button" id="chatButton">
-        <i>AI</i>
-    </div>
-
-    <div class="chat-container" id="chatContainer">
-        <div class="chat-header">
-            <h3>JLUV PC Assistant</h3>
-            <span id="closeChat" style="cursor: pointer;">×</span>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="message bot">
-                Hello! I'm the JLUV PC AI assistant. How can I help you with your custom PC needs today?
-            </div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" id="chatInput" placeholder="Type your message...">
-            <button id="sendMessage">Send</button>
-        </div>
-    </div>
-            <div class="contact-form">
-                <form onsubmit="return sendEmail();">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">How can I help you?</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-button">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="social-icons">
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="Instagram">i</a>
-            <a href="#" aria-label="Twitter">t</a>
-            <a href="#" aria-label="YouTube">y</a>
-        </div>
-        <div class="footer-links">
-            <a href="#services">Services</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#contact">Contact</a>
-            <a href="#">Privacy Policy</a>
-        </div>
-        <p>&copy; 2025 JLUV PC | Keep it clean, come to me</p>
-    </footer>
-</body>
-</html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>JLUV PC | Keep it clean, come to me</title>
+     <style>
+         :root {
+             --primary: #2563eb;
+             --secondary: #60a5fa;
+             --dark: #0f172a;
+             --light: #f8fafc;
+             --accent: #10b981;
+         }
+         
+         * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         }
+         
+         body {
+             background-color: var(--light);
+             color: var(--dark);
+             line-height: 1.6;
+         }
+         
+         header {
+             background-color: var(--dark);
+             padding: 1rem 5%;
+             position: fixed;
+             width: 100%;
+             top: 0;
+             z-index: 100;
+             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+         }
+         
+         .logo-container {
+             display: flex;
+             align-items: center;
+         }
+         
+         .logo-text {
+             color: var(--light);
+             font-size: 1.8rem;
+             font-weight: 700;
+             margin-left: 10px;
+         }
+         
+         .logo-text span {
+             color: var(--secondary);
+         }
+         
+         .slogan {
+             color: var(--secondary);
+             font-style: italic;
+             font-size: 0.9rem;
+             margin-left: 10px;
+         }
+         
+         nav ul {
+             display: flex;
+             list-style: none;
+         }
+         
+         nav ul li {
+             margin-left: 2rem;
+         }
+         
+         nav ul li a {
+             color: var(--light);
+             text-decoration: none;
+             font-weight: 500;
+             transition: color 0.3s;
+         }
+         
+         nav ul li a:hover {
+             color: var(--secondary);
+         }
+         
+         .hero {
+             background: linear-gradient(135deg, var(--dark) 0%, #1e40af 100%);
+             color: var(--light);
+             padding: 10rem 5% 5rem;
+             display: flex;
+             align-items: center;
+             justify-content: space-between;
+         }
+         
+         .hero-content {
+             width: 50%;
+         }
+         
+         .hero h1 {
+             font-size: 3rem;
+             margin-bottom: 1rem;
+             line-height: 1.2;
+         }
+         
+         .hero p {
+             font-size: 1.2rem;
+             margin-bottom: 2rem;
+             opacity: 0.9;
+         }
+         
+         .cta-button {
+             display: inline-block;
+             background-color: var(--accent);
+             color: var(--light);
+             padding: 0.8rem 2rem;
+             border-radius: 5px;
+             text-decoration: none;
+             font-weight: 600;
+             transition: transform 0.3s, background-color 0.3s;
+         }
+         
+         .cta-button:hover {
+             transform: translateY(-3px);
+             background-color: #0d9668;
+         }
+         
+         .hero-image {
+             width: 45%;
+             border-radius: 10px;
+             overflow: hidden;
+             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+         }
+         
+         .hero-image img {
+             width: 100%;
+             display: block;
+         }
+         
+         .services {
+             padding: 5rem 5%;
+         }
+         
+         .section-title {
+             text-align: center;
+             font-size: 2.5rem;
+             margin-bottom: 3rem;
+             position: relative;
+         }
+         
+         .section-title:after {
+             content: '';
+             display: block;
+             width: 80px;
+             height: 4px;
+             background-color: var(--primary);
+             margin: 1rem auto;
+         }
+         
+         .service-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+             gap: 2rem;
+         }
+         
+         .service-card {
+             background-color: white;
+             border-radius: 10px;
+             padding: 2rem;
+             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+             transition: transform 0.3s, box-shadow 0.3s;
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             text-align: center;
+         }
+         
+         .service-card:hover {
+             transform: translateY(-10px);
+             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+         }
+         
+         .service-icon {
+             font-size: 3rem;
+             color: var(--primary);
+             margin-bottom: 1.5rem;
+         }
+         
+         .service-card h3 {
+             font-size: 1.5rem;
+             margin-bottom: 1rem;
+         }
+         
+         .about {
+             background-color: var(--dark);
+             color: var(--light);
+             padding: 5rem 5%;
+             display: flex;
+             align-items: center;
+             justify-content: space-between;
+         }
+         
+         .about-content {
+             width: 50%;
+         }
+         
+         .about-image {
+             width: 40%;
+             border-radius: 10px;
+             overflow: hidden;
+         }
+         
+         .about-image img {
+             width: 100%;
+             display: block;
+         }
+         
+         .about h2 {
+             font-size: 2.5rem;
+             margin-bottom: 1.5rem;
+         }
+         
+         .about p {
+             margin-bottom: 1rem;
+             opacity: 0.9;
+         }
+         
+         .gallery {
+             padding: 5rem 5%;
+         }
+         
+         .gallery-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+             gap: 1.5rem;
+         }
+         
+         .gallery-item {
+             position: relative;
+             border-radius: 10px;
+             overflow: hidden;
+             height: 250px;
+         }
+         
+         .gallery-item img {
+             width: 100%;
+             height: 100%;
+             object-fit: cover;
+             transition: transform 0.5s;
+         }
+         
+         .gallery-item:hover img {
+             transform: scale(1.1);
+         }
+         
+         .gallery-item .overlay {
+             position: absolute;
+             bottom: 0;
+             left: 0;
+             right: 0;
+             background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+             padding: 1rem;
+             color: white;
+             transform: translateY(100%);
+             transition: transform 0.3s;
+         }
+         
+         .gallery-item:hover .overlay {
+             transform: translateY(0);
+         }
+         
+         .testimonials {
+             background-color: #f1f5f9;
+             padding: 5rem 5%;
+         }
+         
+         .testimonial-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+             gap: 2rem;
+         }
+         
+         .testimonial-card {
+             background-color: white;
+             border-radius: 10px;
+             padding: 2rem;
+             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+         }
+         
+         .testimonial-text {
+             font-style: italic;
+             margin-bottom: 1.5rem;
+         }
+         
+         .testimonial-author {
+             display: flex;
+             align-items: center;
+         }
+         
+         .testimonial-author img {
+             width: 50px;
+             height: 50px;
+             border-radius: 50%;
+             margin-right: 1rem;
+         }
+         
+         .contact {
+             padding: 5rem 5%;
+             background-color: var(--dark);
+             color: var(--light);
+         }
+         
+         .contact-container {
+             display: flex;
+             justify-content: space-between;
+             gap: 2rem;
+         }
+         
+         .contact-info {
+             width: 40%;
+         }
+         
+         .contact-info h2 {
+             font-size: 2.5rem;
+             margin-bottom: 1.5rem;
+         }
+         
+         .contact-info p {
+             margin-bottom: 1.5rem;
+             opacity: 0.9;
+         }
+         
+         .contact-detail {
+             display: flex;
+             align-items: center;
+             margin-bottom: 1rem;
+         }
+         
+         .contact-icon {
+             margin-right: 1rem;
+             font-size: 1.2rem;
+             color: var(--secondary);
+         }
+         
+         .contact-form {
+             width: 55%;
+             background-color: rgba(255, 255, 255, 0.05);
+             padding: 2rem;
+             border-radius: 10px;
+         }
+         
+         .form-group {
+             margin-bottom: 1.5rem;
+         }
+         
+         .form-group label {
+             display: block;
+             margin-bottom: 0.5rem;
+             font-weight: 500;
+         }
+         
+         .form-group input, .form-group textarea {
+             width: 100%;
+             padding: 0.8rem;
+             border: none;
+             border-radius: 5px;
+             background-color: rgba(255, 255, 255, 0.1);
+             color: var(--light);
+         }
+         
+         .form-group textarea {
+             height: 150px;
+             resize: vertical;
+         }
+         
+         .submit-button {
+             background-color: var(--accent);
+             color: var(--light);
+             border: none;
+             padding: 0.8rem 2rem;
+             border-radius: 5px;
+             cursor: pointer;
+             font-weight: 600;
+             transition: background-color 0.3s;
+         }
+         
+         .submit-button:hover {
+             background-color: #0d9668;
+         }
+         
+         footer {
+             background-color: #0a0f1a;
+             color: var(--light);
+             padding: 2rem 5%;
+             text-align: center;
+         }
+         
+         .footer-links {
+             display: flex;
+             justify-content: center;
+             margin: 1.5rem 0;
+         }
+         
+         .footer-links a {
+             color: var(--light);
+             margin: 0 1rem;
+             text-decoration: none;
+             transition: color 0.3s;
+         }
+         
+         .footer-links a:hover {
+             color: var(--secondary);
+         }
+         
+         .social-icons {
+             display: flex;
+             justify-content: center;
+             margin-bottom: 1.5rem;
+         }
+         
+         .social-icons a {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             width: 40px;
+             height: 40px;
+             border-radius: 50%;
+             background-color: rgba(255, 255, 255, 0.1);
+             margin: 0 0.5rem;
+             color: var(--light);
+             text-decoration: none;
+             transition: background-color 0.3s, transform 0.3s;
+         }
+         
+         .social-icons a:hover {
+             background-color: var(--primary);
+             transform: translateY(-3px);
+         }
+         
+         @media (max-width: 992px) {
+             .hero, .about, .contact-container {
+                 flex-direction: column;
+                 text-align: center;
+             }
+             
+             .hero-content, .hero-image, .about-content, .about-image, .contact-info, .contact-form {
+                 width: 100%;
+                 margin-bottom: 2rem;
+             }
+             
+             nav {
+                 display: none;
+             }
+             
+             .mobile-menu-button {
+                 display: block;
+                 background: none;
+                 border: none;
+                 color: var(--light);
+                 font-size: 1.5rem;
+                 cursor: pointer;
+             }
+         }
+     </style>
+     <script>
+         function sendEmail() {
+             var name = document.getElementById('name').value;
+             var email = document.getElementById('email').value;
+             var phone = document.getElementById('phone').value;
+             var message = document.getElementById('message').value;
+             
+             var subject = "JLUV PC Website Inquiry from " + name;
+             var body = "Name: " + name + 
+                       "\nEmail: " + email + 
+                       "\nPhone: " + phone + 
+                       "\n\nMessage: " + message;
+             
+             window.location.href = "mailto:jjmasching00@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+             
+             return false; // Prevent form from submitting
+         }
+     </script>
+ </head>
+ <body>
+     <header>
+         <div class="logo-container">
+             <div class="logo-text">JLUV <span>PC</span></div>
+         </div>
+         <div class="slogan">Keep it clean, come to me</div>
+         <nav>
+             <ul>
+                 <li><a href="#home">Home</a></li>
+                 <li><a href="#services">Services</a></li>
+                 <li><a href="#about">About</a></li>
+                 <li><a href="#gallery">Gallery</a></li>
+                 <li><a href="#testimonials">Testimonials</a></li>
+                 <li><a href="#contact">Contact</a></li>
+             </ul>
+         </nav>
+     </header>
+ 
+     <section id="home" class="hero">
+         <div class="hero-content">
+             <h1>Custom PC Building <br>from New Salisbury, Indiana</h1>
+             <p>Expert craftsmanship. Premium components. Exceptional performance. Your dream PC awaits.</p>
+             <a href="#contact" class="cta-button">Get Your Custom Build Today</a>
+         </div>
+         <div class="hero-image">
+             <img src="/api/placeholder/600/400" alt="High-performance custom PC build by JLUV PC">
+         </div>
+     </section>
+ 
+     <section id="services" class="services">
+         <h2 class="section-title">Our Services</h2>
+         <div class="service-grid">
+             <div class="service-card">
+                 <div class="service-icon">💻</div>
+                 <h3>Custom PC Builds</h3>
+                 <p>From gaming rigs to workstations, we'll build the perfect PC tailored to your specific needs and budget.</p>
+             </div>
+             <div class="service-card">
+                 <div class="service-icon">🛠️</div>
+                 <h3>PC Upgrades</h3>
+                 <p>Enhance your existing system with upgrades that boost performance and extend your computer's lifespan.</p>
+             </div>
+             <div class="service-card">
+                 <div class="service-icon">🧹</div>
+                 <h3>PC Cleaning</h3>
+                 <p>Professional cleaning and maintenance to keep your system running cool and at peak performance.</p>
+             </div>
+             <div class="service-card">
+                 <div class="service-icon">💬</div>
+                 <h3>Consultation</h3>
+                 <p>Expert advice on components, configurations, and solutions to meet your computing needs.</p>
+             </div>
+         </div>
+     </section>
+ 
+     <section id="about" class="about">
+         <div class="about-content">
+             <h2>About JLUV PC</h2>
+             <p>Based in New Salisbury, Indiana, JLUV PC was born from a passion for building high-performance, reliable computer systems. What started as a hobby has grown into my dream business.</p>
+             <p>With meticulous attention to detail and a commitment to using only premium components, I ensure that every build meets the highest standards of quality and performance.</p>
+             <p>My mission is simple: provide customized PC solutions that exceed expectations while offering exceptional customer service every step of the way.</p>
+         </div>
+         <div class="about-image">
+             <img src="/api/placeholder/500/400" alt="JLUV PC founder working on a custom PC build">
+         </div>
+     </section>
+ 
+     <section id="gallery" class="gallery">
+         <h2 class="section-title">Build Gallery</h2>
+         <div class="gallery-grid">
+             <div class="gallery-item">
+                 <img src="/api/placeholder/400/400" alt="Gaming PC with RGB lighting">
+                 <div class="overlay">
+                     <h3>RGB Gaming Beast</h3>
+                     <p>High-end gaming PC with custom RGB lighting</p>
+                 </div>
+             </div>
+             <div class="gallery-item">
+                 <img src="/api/placeholder/400/400" alt="Minimalist workstation PC">
+                 <div class="overlay">
+                     <h3>Minimalist Workstation</h3>
+                     <p>Clean and powerful desktop for professional work</p>
+                 </div>
+             </div>
+             <div class="gallery-item">
+                 <img src="/api/placeholder/400/400" alt="Compact SFF PC build">
+                 <div class="overlay">
+                     <h3>Compact Powerhouse</h3>
+                     <p>Small form factor PC with maximum performance</p>
+                 </div>
+             </div>
+             <div class="gallery-item">
+                 <img src="/api/placeholder/400/400" alt="Custom water-cooled PC">
+                 <div class="overlay">
+                     <h3>Liquid Cooled Performance</h3>
+                     <p>Custom water cooling for optimal temperatures</p>
+                 </div>
+             </div>
+             <div class="gallery-item">
+                 <img src="/api/placeholder/400/400" alt="Budget gaming PC build">
+                 <div class="overlay">
+                     <h3>Budget Gaming Rig</h3>
+                     <p>Affordable but powerful gaming solution</p>
+                 </div>
+             </div>
+             <div class="gallery-item">
+                 <img src="/api/placeholder/400/400" alt="High-end content creation PC">
+                 <div class="overlay">
+                     <h3>Creator's Dream</h3>
+                     <p>Optimized for video editing and content creation</p>
+                 </div>
+             </div>
+         </div>
+     </section>
+ 
+     <section id="testimonials" class="testimonials">
+         <h2 class="section-title">What Clients Say</h2>
+         <div class="testimonial-grid">
+             <div class="testimonial-card">
+                 <p class="testimonial-text">"JLUV PC built me a gaming rig that exceeds all my expectations. The attention to detail and cable management is immaculate. Truly a work of art!"</p>
+                 <div class="testimonial-author">
+                     <img src="/api/placeholder/100/100" alt="Customer">
+                     <div>
+                         <strong>Mike Johnson</strong>
+                         <p>Gaming Enthusiast</p>
+                     </div>
+                 </div>
+             </div>
+             <div class="testimonial-card">
+                 <p class="testimonial-text">"After explaining my needs for video editing, I received a custom PC that handles everything I throw at it with ease. The service was personal and professional."</p>
+                 <div class="testimonial-author">
+                     <img src="/api/placeholder/100/100" alt="Customer">
+                     <div>
+                         <strong>Sarah Miller</strong>
+                         <p>Content Creator</p>
+                     </div>
+                 </div>
+             </div>
+             <div class="testimonial-card">
+                 <p class="testimonial-text">"The PC cleaning service brought my old system back to life. Everything runs cooler and faster now. Great value and excellent service!"</p>
+                 <div class="testimonial-author">
+                     <img src="/api/placeholder/100/100" alt="Customer">
+                     <div>
+                         <strong>David Thompson</strong>
+                         <p>Business Owner</p>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </section>
+ 
+     <section id="contact" class="contact">
+         <h2 class="section-title">Get In Touch</h2>
+         <div class="contact-container">
+             <div class="contact-info">
+                 <p>Ready to start your custom PC journey? Contact me today for a free consultation and quote.</p>
+                 <div class="contact-detail">
+                     <span class="contact-icon">📍</span>
+                     <span>New Salisbury, Indiana</span>
+                 </div>
+                 <div class="contact-detail">
+                     <span class="contact-icon">📱</span>
+                     <span>(812) 736-2887</span>
+                 </div>
+                 <div class="contact-detail">
+                     <span class="contact-icon">✉️</span>
+                     <span>jjmasching00@gmail.com</span>
+                 </div>
+                 <div class="contact-detail">
+                     <span class="contact-icon">⏰</span>
+                     <span>Monday-Friday: 9am-6pm<br>Saturday: 10am-4pm</span>
+                 </div>
+             </div>
+             <div class="contact-form">
+                 <form onsubmit="return sendEmail();">
+                     <div class="form-group">
+                         <label for="name">Name</label>
+                         <input type="text" id="name" name="name" required>
+                     </div>
+                     <div class="form-group">
+                         <label for="email">Email</label>
+                         <input type="email" id="email" name="email" required>
+                     </div>
+                     <div class="form-group">
+                         <label for="phone">Phone</label>
+                         <input type="tel" id="phone" name="phone">
+                     </div>
+                     <div class="form-group">
+                         <label for="message">How can I help you?</label>
+                         <textarea id="message" name="message" required></textarea>
+                     </div>
+                     <button type="submit" class="submit-button">Send Message</button>
+                 </form>
+             </div>
+         </div>
+     </section>
+ 
+     <footer>
+         <div class="social-icons">
+             <a href="#" aria-label="Facebook">f</a>
+             <a href="#" aria-label="Instagram">i</a>
+             <a href="#" aria-label="Twitter">t</a>
+             <a href="#" aria-label="YouTube">y</a>
+         </div>
+         <div class="footer-links">
+             <a href="#services">Services</a>
+             <a href="#gallery">Gallery</a>
+             <a href="#contact">Contact</a>
+             <a href="#">Privacy Policy</a>
+         </div>
+         <p>&copy; 2025 JLUV PC | Keep it clean, come to me</p>
+     </footer>
+ </body>
+ </html>
