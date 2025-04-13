@@ -541,7 +541,14 @@
     .assistant-name {
       font-weight: 600;
     }
-    
+
+        .close-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
     .close-chat {
       background: none;
       border: none;
@@ -827,7 +834,9 @@
           updateSuggestedQuestions(message);
         }, 1000); // Simulated typing delay
       }
-      
+          closeButton.addEventListener('click', () => {
+            assistantContainer.style.display = 'none';
+         const closeButton = document.getElementById('closeButton');
       // Add a message to the chat
       function addMessage(text, sender) {
         const messageDiv = document.createElement('div');
