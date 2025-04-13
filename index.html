@@ -497,7 +497,7 @@
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background-color: var(--seondary-color);
+      background-color: var(--secondary-color);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -540,7 +540,8 @@
     
     .assistant-name {
       font-weight: 600;
- 
+    }
+    
     .close-chat {
       background: none;
       border: none;
@@ -697,7 +698,6 @@
         <div class="suggested-question">Upgrading my RAM</div>
         <div class="suggested-question">Slow computer</div>
         <div class="suggested-question">Graphics card recommendations</div>
-        <div class="suggested-question">CPU Overclocking</div>
       </div>
       
       <div class="chat-input-area">
@@ -735,7 +735,7 @@
         "graphics card": "When choosing a graphics card, consider:\n1. Your monitor's resolution and refresh rate\n2. Your power supply wattage\n3. Physical space in your case\n4. Your budget\n\nPopular options right now include NVIDIA RTX 4060/4070 series for mid-range or AMD Radeon RX 7600/7700 for good price-performance balance.",
         
         "processor": "When upgrading your CPU, you need to check:\n1. Socket compatibility with your motherboard\n2. Power requirements\n3. Cooling solution needed\n\nFor gaming, Intel Core i5/i7 or AMD Ryzen 5/7 offer great performance. For professional work, consider Intel Core i7/i9 or AMD Ryzen 7/9 processors.",
-
+        
         // Performance Issues
         "slow": "If your computer is running slow, try these steps:\n1. Restart your computer\n2. Check for malware/viruses\n3. Uninstall unused programs\n4. Clean up disk space (Disk Cleanup utility)\n5. Disable startup programs\n6. Consider upgrading to an SSD if you're using an HDD\n7. Add more RAM if you're frequently at high memory usage",
         
@@ -826,9 +826,7 @@
           updateSuggestedQuestions(message);
         }, 1000); // Simulated typing delay
       }
-          closeButton.addEventListener('click', () => {
-            assistantContainer.style.display = 'none';
-         const closeButton = document.getElementById('closeButton');
+      
       // Add a message to the chat
       function addMessage(text, sender) {
         const messageDiv = document.createElement('div');
@@ -980,7 +978,7 @@
             <div class="service-card">
                 <div class="service-icon">💻</div>
                 <h3>Custom PC Builds</h3>
-                <p>From gaming rigs to workstations, I'll build the perfect PC tailored to your specific needs and budget.</p>
+                <p>From gaming rigs to workstations, we'll build the perfect PC tailored to your specific needs and budget.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">🛠️</div>
@@ -1003,7 +1001,7 @@
     <section id="about" class="about">
         <div class="about-content">
             <h2>About JLUV PC</h2>
-            <p>Based in New Salisbury, Indiana, I was born from a passion for building high-performance, reliable computer systems. What started as a hobby has grown into my dream business.</p>
+            <p>Based in New Salisbury, Indiana, JLUV PC was born from a passion for building high-performance, reliable computer systems. What started as a hobby has grown into my dream business.</p>
             <p>With meticulous attention to detail and a commitment to using only premium components, I ensure that every build meets the highest standards of quality and performance.</p>
             <p>My mission is simple: provide customized PC solutions that exceed expectations while offering exceptional customer service every step of the way.</p>
         </div>
@@ -1066,27 +1064,27 @@
             <div class="testimonial-card">
                 <p class="testimonial-text">"JLUV PC built me a gaming rig that exceeds all my expectations. The attention to detail and cable management is immaculate. Truly a work of art!"</p>
                 <div class="testimonial-author">
-                    <img src="images (3).jpeg" alt="Customer">
+                    <img src="/api/placeholder/100/100" alt="Customer">
                     <div>
                         <strong>Mike Johnson</strong>
-                        <p>Top Gaming Coach</p>
+                        <p>Gaming Enthusiast</p>
                     </div>
                 </div>
             </div>
             <div class="testimonial-card">
                 <p class="testimonial-text">"After explaining my needs for video editing, I received a custom PC that handles everything I throw at it with ease. The service was personal and professional."</p>
                 <div class="testimonial-author">
-                    <img src="images (4).jpeg" alt="Customer">
+                    <img src="/api/placeholder/100/100" alt="Customer">
                     <div>
                         <strong>Sarah Miller</strong>
-                        <p>Vlog Recorder</p>
+                        <p>Content Creator</p>
                     </div>
                 </div>
             </div>
             <div class="testimonial-card">
                 <p class="testimonial-text">"The PC cleaning service brought my old system back to life. Everything runs cooler and faster now. Great value and excellent service!"</p>
                 <div class="testimonial-author">
-                    <img src="images (5).jpeg" alt="Customer">
+                    <img src="/api/placeholder/100/100" alt="Customer">
                     <div>
                         <strong>David Thompson</strong>
                         <p>Business Owner</p>
